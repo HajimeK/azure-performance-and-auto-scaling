@@ -1,36 +1,51 @@
-# Python package
-# Create and test a Python package on multiple Python versions.
-# Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/python
 
-trigger:
-- master
+name: Azure Pipelines
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    pool:
+      name: Hosted Ubuntu 1604
+    steps:
+    - task: ArchiveFiles@2
+      displayName: 'Archive Azure Vote'
+      inputs:
+        rootFolderOrFile: 'azure-vote'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-azurevote.zip'
+    - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-azurevote.zip
+      displayName: 'Upload Package'
+      artifact: drop-azurevote
+- stage:
+  jobs:
+  - deployment: VMDeploy
+    pool:
+      vmImage: 'Ubuntu-16.04'
+    displayName: Deploy to VMSS
+    environment:
+      name: ACDND-C4-Project
+      resourceType: VirtualMachine
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: |
+                #! /bin/bash
 
-pool:
-  vmImage: ubuntu-latest
-strategy:
-  matrix:
-    Python27:
-      python.version: '2.7'
-    Python35:
-      python.version: '3.5'
-    Python36:
-      python.version: '3.6'
-    Python37:
-      python.version: '3.7'
+                pip3 install redis
+                pip3 install opencensus-ext-azure
+                pip3 install flask
+                pip3 install opencensus-ext-flask
 
-steps:
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '$(python.version)'
-  displayName: 'Use Python $(python.version)'
-
-- script: |
-    python -m pip install --upgrade pip
-    pip install -r requirements.txt
-  displayName: 'Install dependencies'
-
-- script: |
-    pip install pytest pytest-azurepipelines
-    pytest
-  displayName: 'pytest'
+                cd ~/
+                DIR=/home/udacityadmin/app
+                if [ ! -d "$DIR" ]; then
+                    mkdir app
+                fi
+                mv /home/udacityadmin/azagent/_work/1/drop-azurevote/$(Build.BuildId)-azurevote.zip app
+                cd app
+                unzip -o $(Build.BuildId)-azurevote.zip
