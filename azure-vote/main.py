@@ -11,10 +11,12 @@ from datetime import datetime
 # TODO: Import required libraries for App Insights
 from logging import INFO, getLogger
 from opencensus.ext.azure.log_exporter import AzureLogHandler
+from opencensus.ext.azure import metrics_exporter
 from opencensus.ext.azure.trace_exporter import AzureExporter
 from opencensus.trace.samplers import ProbabilitySampler
 from opencensus.trace.tracer import Tracer
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware
+
 
 app = Flask(__name__)
 
@@ -33,6 +35,9 @@ logger.setLevel(INFO)
 logger.addHandler(handler)
 
 # Metrics
+exporter = metrics_exporter.new_metrics_exporter(
+    enable_standard_metrics=True,
+    connection_string=connection_string)
 exporter = AzureExporter(connection_string=connection_string)
 
 # Tracing
