@@ -22,16 +22,18 @@ app = Flask(__name__)
 app.config.from_pyfile('config_file.cfg')
 
 InstrumentationKey=os.getenv('InstrumentationKey')
+IngestionEndPoint = os.getenv('IngestionEndpoint')
+connection_string = f'InstrumentationKey={InstrumentationKey};IngestionEndPoint={IngestionEndPoint}'
 
 # Logging
 logger = getLogger(__name__)
-handler = AzureLogHandler(connection_string=f'InstrumentationKey={InstrumentationKey}')
+handler = AzureLogHandler(connection_string=connection_string)
 handler.setLevel(INFO)
 logger.setLevel(INFO)
 logger.addHandler(handler)
 
 # Metrics
-exporter = AzureExporter(connection_string=f'InstrumentationKey={InstrumentationKey}')
+exporter = AzureExporter(connection_string=connection_string)
 
 # Tracing
 tracer = Tracer(exporter=exporter, sampler=ProbabilitySampler(1.0))
@@ -39,7 +41,7 @@ tracer = Tracer(exporter=exporter, sampler=ProbabilitySampler(1.0))
 # Requests
 middleware = FlaskMiddleware(
     app,
-    exporter=AzureExporter(connection_string=f"InstrumentationKey={InstrumentationKey}"),
+    exporter=exporter,
     sampler=ProbabilitySampler(rate=1.0),
 )
 
@@ -120,7 +122,7 @@ def index():
 
 if __name__ == "__main__":
     # comment line below when deploying to VMSS
-    # app.run() # local
-    app.run(host='0.0.0.0', threaded=True, debug=True)
+    app.run() # local
+    #app.run(host='0.0.0.0', threaded=True, debug=True)
     # uncomment the line below before deployment to VMSS
     # app.run(host='0.0.0.0', threaded=True, debug=True) # remote
