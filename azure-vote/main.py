@@ -23,8 +23,8 @@ app = Flask(__name__)
 # Load configurations from environment or config file
 app.config.from_pyfile('config_file.cfg')
 
-InstrumentationKey=os.getenv('InstrumentationKey')
-IngestionEndPoint = os.getenv('IngestionEndpoint')
+InstrumentationKey= app.config['INSTRUMENTATIONKEY']
+IngestionEndPoint = app.config['INGESTIONENDPOINT']
 connection_string = f'InstrumentationKey={InstrumentationKey};IngestionEndPoint={IngestionEndPoint}'
 
 # Logging
@@ -127,7 +127,7 @@ def index():
 
 if __name__ == "__main__":
     # comment line below when deploying to VMSS
-    app.run() # local
-    #app.run(host='0.0.0.0', threaded=True, debug=True)
+    #app.run() # local
+    app.run(host='0.0.0.0', threaded=True, debug=True)
     # uncomment the line below before deployment to VMSS
     # app.run(host='0.0.0.0', threaded=True, debug=True) # remote
