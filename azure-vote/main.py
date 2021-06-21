@@ -21,7 +21,7 @@ app = Flask(__name__)
 # Load configurations from environment or config file
 app.config.from_pyfile('config_file.cfg')
 
-InstrumentationKey=os.environ('InstrumentationKey')
+InstrumentationKey=os.getenv('InstrumentationKey')
 
 # Logging
 logger = getLogger(__name__)
