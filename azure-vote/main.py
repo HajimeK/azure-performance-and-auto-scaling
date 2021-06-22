@@ -23,8 +23,8 @@ app = Flask(__name__)
 # Load configurations from environment or config file
 app.config.from_pyfile('config_file.cfg')
 
-InstrumentationKey=os.getenv('InstrumentationKey')
-IngestionEndPoint = os.getenv('IngestionEndpoint')
+InstrumentationKey= app.config['INSTRUMENTATIONKEY']
+IngestionEndPoint = app.config['INGESTIONENDPOINT']
 connection_string = f'InstrumentationKey={InstrumentationKey};IngestionEndPoint={IngestionEndPoint}'
 
 # Logging

@@ -1,0 +1,25 @@
+
+#!/bin/bash
+
+# Variables
+resourceGroup="acdnd-c4-project"
+#location="westus2"
+location="japaneast"
+osType="UbuntuLTS"
+vmssName="udacity-vmss"
+adminName="udacityadmin"
+storageAccount="udacitydiag$RANDOM"
+bePoolName="$vmssName-bepool"
+lbName="$vmssName-lb"
+lbRule="$lbName-network-rule"
+nsgName="$vmssName-nsg"
+vnetName="$vmssName-vnet"
+subnetName="$vnetName-subnet"
+probeName="tcpProbe"
+vmSize="Standard_B1ls"
+storageType="Standard_LRS"
+# My Variablle
+logAnalyticsWorksapce="acdnd-c4-logAnalyticsWorksapce"
+
+
+az deployment group create --resource-group $resourceGroup= --name $logAnalyticsWorksapce --template-file deploylaworkspacetemplate.json
