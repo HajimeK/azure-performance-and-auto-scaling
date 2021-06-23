@@ -32,7 +32,7 @@ connection_string = f'InstrumentationKey={InstrumentationKey}'
 logger = getLogger(__name__)
 handler = AzureLogHandler(connection_string=connection_string)
 #handler.setLevel(INFO)
-#logger.setLevel(INFO)
+logger.setLevel(INFO)
 logger.addHandler(handler)
 
 # Metrics
@@ -118,6 +118,12 @@ def index():
             # Insert vote result into DB
             vote = request.form['vote']
             r.incr(vote,1)
+
+            # missing in Udacity code to reflect the current vote
+            vote0 = r.get(vote).decode('utf-8')
+            # log current vote
+            properties = {'custom_dimensions': {'{}_vote'.format(vote): vote0}}
+            logger.info('new_{}_vote'.format(vote), extra=properties)
 
             # Get current values
             vote1 = r.get(button1).decode('utf-8')
