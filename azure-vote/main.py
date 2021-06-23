@@ -25,7 +25,8 @@ app.config.from_pyfile('config_file.cfg')
 
 InstrumentationKey= app.config['INSTRUMENTATIONKEY']
 IngestionEndPoint = app.config['INGESTIONENDPOINT']
-connection_string = f'InstrumentationKey={InstrumentationKey};IngestionEndPoint={IngestionEndPoint}'
+#connection_string = f'InstrumentationKey={InstrumentationKey};IngestionEndPoint={IngestionEndPoint}'
+connection_string = f'InstrumentationKey={InstrumentationKey}'
 
 # Logging
 logger = getLogger(__name__)
@@ -38,7 +39,7 @@ logger.addHandler(handler)
 exporter = metrics_exporter.new_metrics_exporter(
     enable_standard_metrics=True,
     connection_string=connection_string)
-exporter = AzureExporter(connection_string=connection_string)
+exporterArg = AzureExporter(connection_string=connection_string)
 
 # Tracing
 tracer = Tracer(exporter=exporter, sampler=ProbabilitySampler(1.0))
@@ -46,7 +47,7 @@ tracer = Tracer(exporter=exporter, sampler=ProbabilitySampler(1.0))
 # Requests
 middleware = FlaskMiddleware(
     app,
-    exporter=exporter,
+    exporterArg=exporter,
     sampler=ProbabilitySampler(rate=1.0),
 )
 
