@@ -47,7 +47,7 @@ tracer = Tracer(exporter=exporter, sampler=ProbabilitySampler(1.0))
 # Requests
 middleware = FlaskMiddleware(
     app,
-    exporterArg=exporterArg,
+    exporter=exporterArg,
     sampler=ProbabilitySampler(rate=1.0),
 )
 
