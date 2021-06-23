@@ -30,8 +30,8 @@ connection_string = f'InstrumentationKey={InstrumentationKey};IngestionEndPoint=
 # Logging
 logger = getLogger(__name__)
 handler = AzureLogHandler(connection_string=connection_string)
-handler.setLevel(INFO)
-logger.setLevel(INFO)
+#handler.setLevel(INFO)
+#logger.setLevel(INFO)
 logger.addHandler(handler)
 
 # Metrics
@@ -84,11 +84,11 @@ def index():
         # Get current values
         vote1 = r.get(button1).decode('utf-8')
         # TODO: use tracer object to trace cat vote
-        tracer.span(name=f'{vote1}')
+        tracer.span(name='Cats Vote')
 
         vote2 = r.get(button2).decode('utf-8')
         # TODO: use tracer object to trace dog vote
-        tracer.span(name=f'{vote2}')
+        tracer.span(name='Dogs Vote')
 
         # Return index with values
         return render_template("index.html", value1=int(vote1), value2=int(vote2), button1=button1, button2=button2, title=title)
