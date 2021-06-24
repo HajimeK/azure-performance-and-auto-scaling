@@ -23,3 +23,13 @@ logAnalyticsWorksapce="acdnd-c4-logAnalyticsWorksapce"
 
 
 az deployment group create --resource-group $resourceGroup= --name $logAnalyticsWorksapce --template-file deploylaworkspacetemplate.json
+
+
+
+kubectl get nodes
+
+
+az aks create --name udacity-cluster --resource-group acdnd-c4-project --node-count 1 --generate-ssh-keys --location centralus 
+az aks get-credentials --name udacity-cluster --resource-group acdnd-c4-project --verbose
+kubectl get nodes
+kubectl apply -f azure-vote.yaml
