@@ -10,7 +10,7 @@ from datetime import datetime
 # App Insights
 # TODO: Import required libraries for App Insights
 from logging import INFO, getLogger
-from opencensus.ext.azure.log_exporter import AzureLogHandler
+from opencensus.ext.azure.log_exporter import AzureLogHandler, AzureEventHandler
 from opencensus.ext.azure import metrics_exporter
 from opencensus.ext.azure.trace_exporter import AzureExporter
 from opencensus.trace.samplers import ProbabilitySampler
@@ -30,10 +30,12 @@ connection_string = f'InstrumentationKey={InstrumentationKey}'
 
 # Logging
 logger = getLogger(__name__)
-handler = AzureLogHandler(connection_string=connection_string)
+logHandler = AzureLogHandler(connection_string=connection_string)
+eventHandler = AzureEventHandler(connection_string=connection_string)
 #handler.setLevel(INFO)
 logger.setLevel(INFO)
-logger.addHandler(handler)
+logger.addHandler(logHandler)
+logger.addHandler(eventHandler)
 
 # Metrics
 exporter = metrics_exporter.new_metrics_exporter(
