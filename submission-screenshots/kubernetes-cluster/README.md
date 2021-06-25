@@ -109,54 +109,22 @@ When workload becomes low, decreased the number of pods for azure-vote-front to 
 CPU utilization spikes as below when workload is imposed.
 It went over the threshold of *30%* which I defined.
 
-![](screenshots_see_readme_/2021-06-25-09-48-36.png)
-
-![](screenshots_see_readme_/2021-06-25-09-49-42.png)
+![](screenshots_see_readme_/2021-06-25-17-58-50.png)
 
 We can see it in the portal log.
 
-![](screenshots_see_readme_/2021-06-25-11-18-59.png)
+![](screenshots_see_readme_/2021-06-25-18-05-44.png)
+
 
 ### The email you received from the alert when the pod count increased.
 
 Alert mail is configured to be sent, when the number of pods exceeds 12 as below.
 
-![](screenshots_see_readme_/2021-06-25-11-49-22.png)
+![](screenshots_see_readme_/2021-06-25-18-01-52.png)
 
 By configuring the alert, a mail was sent as bellow.
 
-![](screenshots_see_readme_/2021-06-25-11-48-19.png)
+![](screenshots_see_readme_/2021-06-25-18-02-16.png)
 
-The mail content can be seen as below.
-
-```
-Microsoft Azure 	
-Resolved:Sev2 Azure Monitor Alert Increased number pods on udacity-cluster ( microsoft.containerservice/managedclusters ) at 6/25/2021 2:43:45 AM
-	
-View the alert in Azure Monitor >
-	
-Summary
-Alert name 	Increased number pods
-Severity 	Sev2
-Monitor condition 	Resolved
-Affected resource 	udacity-cluster
-Resource type 	microsoft.containerservice/managedclusters
-Resource group 	acdnd-c4-project
-Subscription 	Azure subscription 1
-Description 	Increased number pods
-Monitoring service 	Platform
-Signal type 	Metric
-Fired time 	June 25, 2021 2:43 UTC
-Alert ID 	d745e70a-81fe-439c-9455-e318e735de84
-Alert rule ID 	<removed by author>
-
-Metric alert condition type	SingleResourceMultipleMetricCriteria
-Time aggregation	Maximum
-Metric name	PodCount
-Metric namespace	insights.container/pods
-Metric value (when alert fired)	12
-Operator	GreaterThan
-Threshold	12
-```
 
 (cf: https://docs.microsoft.com/ja-jp/azure/aks/tutorial-kubernetes-prepare-app)

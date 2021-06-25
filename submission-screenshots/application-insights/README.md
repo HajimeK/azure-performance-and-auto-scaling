@@ -2,7 +2,7 @@
 
 ## Resouce Group in Azure Portal
 
-![](screenshots_see_readme_/2021-06-24-11-44-29.png)
+![](screenshots_see_readme_/2021-06-25-17-08-29.png)
 
 ## main.py
 
@@ -164,7 +164,9 @@ this will show
 
 All in one figures can be observed as below.
 Each graph includes red and blue lines, which correspond to each 2 VMs in the VMSS.
-![](screenshots_see_readme_/2021-06-24-10-25-12.png)
+
+![](screenshots_see_readme_/2021-06-25-20-22-06.png)
+![](screenshots_see_readme_/2021-06-25-20-22-40.png)
 
 ## Application Insight Events which show the results of clicking 'vote' for each 'Dogs' & 'Cats'
 
