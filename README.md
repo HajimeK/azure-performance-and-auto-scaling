@@ -1,17 +1,18 @@
 # Enhancing Applications
 
-In this project, you will apply the skills you have acquired in the Azure Performance course to collect and display performance and health data about an application. This is only half the battle; the other half is making informed decisions about the data and automating remediation tasks. You will use a combination of cloud technologies, such as Azure Kubernetes Service, VM Scale Sets, Application Insights, Azure Log Analytics, and Azure Runbooks to showcase your skills in diagnosing and rectifying application and infrastructure problems.
+First display performance and health data about an application, and then making informed decisions about the data and automating remediation tasks. With a combination of cloud technologies, such as Azure Kubernetes Service, VM Scale Sets, Application Insights, Azure Log Analytics, and Azure Runbooks to showcase skills in diagnosing and rectifying application and infrastructure problems.
 
-In this project, you'll be tasked to do the following:
+Following can be found under this repository:
 
-- Setup Application Insights monitoring on a VMSS and implement monitoring in an application to collect telemetry data
-- Setup an auto-scaling for a VMSS
-- Setup an Azure Automation account and create a RunBook to automate the resolution of performance issues
-- Create alerts to trigger auto-scaling on an AKS cluster and trigger a RunBook to execute
+- [Setup Application Insights monitoring on a VMSS and implement monitoring in an application to collect telemetry data](subprojects/autoscaling-vmss/README.md)
+- [Setup an auto-scaling for a VMSS](./subprojects/autoscaling-vmss/README.md)
+- [Setup an Azure Automation account and create a RunBook to automate the resolution of performance issues](subprojects/runbook/README.md)
+- [Create alerts to trigger auto-scaling on an AKS cluster and trigger a RunBook to execute](subprojects/kubernetes-cluster/README.md)
 
-## Getting Started
 
 ### Prerequisites
+
+
 
 1. [Create a free Azure Account](https://azure.microsoft.com/en-us/free/)
 2. [Create a free Azure DevOps account](https://azure.microsoft.com/en-us/pricing/details/devops/azure-devops-services/) (Click **Start Free** under **Azure Pipelines**)
@@ -116,34 +117,6 @@ We'll use Azure Pipelines to deploy our application to an Azure VM Scale Set. Fo
 3. Create an alert which uses a runbook to remedy a problem.
 4. Cause the problem to the flask app on the VM Scale Set.
 5. Verify the problem is remedied via the Runbook.
-
-## Submissions
-
-1. The `main.py` which will show the code for the Application Insights telemety data.
-2. Screenshots for the kubernetes cluster which include:
-   **Note**: Place all screenshots for Kubernetes Cluster in the `submission-screenshots/kubernetes-cluster` directory
-   - The output of the Horizontal Pod Autoscaler, showing an increase in the number of pods.
-   - The Application Insights metrics which show the increase in the number of pods.
-   - The email you received from the alert when the pod count increased.
-3. Screenshots for the Application Insights which include:
-   **Note**: Place all screenshots for Application Insights in the `submission-screenshots/application-insights` directory
-   - The metrics from the VM Scale Set instance--this will show CPU %, Available Memory %, Information about the Disk, and information about the bytes sent and received. There will be 7 graphs which display this data.
-   - Application Insight Events which show the results of clicking 'vote' for each 'Dogs' & 'Cats'
-   - The output of the `traces` query in Azure Log Analytics.
-   - The chart created from the output of the `traces` query.
-4. Screenshots for the Autoscaling of the VM Scale Set which include:
-   **Note**: Place all screenshots for Autoscaling VMSS in the `submission-screenshots/autoscaling-vmss` directory
-   - The conditions for which autoscaling will be triggered (found in the 'Scaling' item in the VM Scale Set).
-   - The Activity log of the VM scale set which shows that it scaled up with timestamp.
-   - The new instances being created.
-   - The metrics which show the load increasing, then decreasing once scaled up with timestamp.
-5. Screenshots for the Azure Runbook which include:
-   **Note**: Place all screenshots for RunBook in the `submission-screenshots/runbook` directory
-   - The alert configuration in Azure Monitor which shows the resource, condition, action group (this should include a reference to your Runbook), and alert rule details (may need 2 screenshots).
-   - The email you received from the alert when the Runbook was executed.
-   - The summary of the alert which shows 'why did this alert fire?', timestamps, and the criterion in which it fired.
-
-## Built With
 
 ### Software
 
